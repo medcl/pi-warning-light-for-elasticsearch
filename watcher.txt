@@ -1,0 +1,61 @@
+curl -XPUT "http://192.168.1.202:9200/_xpack/watcher/watch/server_is_down" -H 'Content-Type: application/json' -d'
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1s"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "heartbeat-*"
+        ],
+        "types": [],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-3s"
+                    }
+                  }
+                },
+                {
+                  "match": {
+                    "monitor.status": "down"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gte": 1
+      }
+    }
+  },
+  "actions": {
+    "alarm_webhook": {
+      "webhook": {
+        "scheme": "http",
+        "host": "192.168.1.200",
+        "port": 9000,
+        "method": "post",
+        "params": {},
+        "headers": {},
+        "body": "SOS, server is down!"
+      }
+    }
+  },
+  "throttle_period_in_millis": 5000
+}'
