@@ -100,7 +100,10 @@ curl -XPUT "http://192.168.1.202:9200/_xpack/watcher/watch/server_is_down" -H 'C
 ```
 
 ### Demo
+
 Youtube: [https://www.youtube.com/watch?v=Zy6_Yk5DVBo](https://www.youtube.com/watch?v=Zy6_Yk5DVBo)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Zy6_Yk5DVBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[![Build a real world alerting service for Elasticsearch](https://img.youtube.com/vi/Zy6_Yk5DVBo/0.jpg)](https://www.youtube.com/watch?v=Zy6_Yk5DVBo "Build a real world alerting service for Elasticsearch")
+
 
